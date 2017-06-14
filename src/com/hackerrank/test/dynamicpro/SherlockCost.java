@@ -1,4 +1,4 @@
-package com.hackerrank.test;
+package com.hackerrank.test.dynamicpro;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -59,14 +59,16 @@ public class SherlockCost {
         }
         for(int i = 1 ; i< index ; i+=2)
           sum2 += (2 * Math.abs(b[i]));
-            
+
     }
 */
 
 
 
     static int t,n,b[],costsum =0 ;
+    static int lowcost =0, highcost =0;
     public static void main(String[] args) {
+        // TODO Auto-generated method stub
         Scanner in = new Scanner(System.in);
         n = in.nextInt();
 
@@ -89,7 +91,7 @@ public class SherlockCost {
 
     public static int cost(int i)
     {
-        int lowcost =0, highcost =0;
+
        /* if(i == 1) {
            System.out.println( "----"+Math.max(Math.abs(b[1] - 1), Math.abs(b[0] - 1)));
             return Math.max(Math.abs(b[1] - 1), Math.abs(b[0] - 1));
@@ -109,7 +111,7 @@ public class SherlockCost {
             lowcost = Math.max(Math.abs(b[i-1]-1),Math.abs(b[i-1]-b[i]));
             System.out.println(costsum + " index is 1 \t" + i);
             System.out.println(lowcost + " ----- " + highcost);
-            return (costsum +=Math.max(lowcost, highcost));
+            return (costsum += Math.max(lowcost, highcost));
         }
 
         else {
@@ -120,7 +122,7 @@ public class SherlockCost {
             System.out.println(lo + " ----- " + hi);
             lowcost = lo;
             highcost = hi;
-            return (costsum =Math.max(lowcost, highcost) + cost(i-1));
+            return (costsum += cost(i-1));
         }
     }
 
