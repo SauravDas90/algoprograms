@@ -58,7 +58,7 @@ public class Candies {
             } else if (score[index] > score[index - 1] && score[index + 1] >= score[index])
                 candy[index] = candy[index - 1] + 1;
 
-            else if (score[index - 1] > score[index] && score[index] >= score[index + 1]) {
+            else if (score[index - 1] >= score[index] && score[index] >= score[index + 1]) {
                 candy[index] = candy[index + 1] + 1;
                 leastCostCandy(candy, index - 1);
             } /*else if (score[index - 1] > score[index]) {
