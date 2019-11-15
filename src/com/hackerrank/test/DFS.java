@@ -10,9 +10,9 @@ import java.util.Stack;
  */
 public class DFS {
 
-    LinkedList<Integer> adjLst[] ;
-    Stack<Integer> nodes;
-    static boolean visited[];
+   private LinkedList<Integer> adjLst[] ;
+    private Stack<Integer> nodes;
+    private static boolean visited[];
 
     public DFS(int vertex){
 
@@ -40,11 +40,11 @@ public class DFS {
 
         //start = in.nextInt();
 
-        for(int i=1;i<=vertex;i++) {
+        /*for(int i=1;i<=vertex;i++) {
             if(!visited[i-1])
                 grapDfs.DFSsort(i);
         }
-
+*/
     }
 
     public void addEdge(int u,int w){
@@ -57,13 +57,13 @@ public class DFS {
 
     public void DFSsort(int start){
 
-        int top = start;
+        /*int top = start;
         //nodes.push(top);
         visited[top-1] = true;
 
-       /* while(!nodes.empty())
+       *//* while(!nodes.empty())
         {
-       */
+       *//*
         for(int k = 0; k < adjLst[top-1].size() ; k++){
             top = adjLst[top-1].get(k);
             if(!visited[top-1]) {
@@ -74,12 +74,34 @@ public class DFS {
 
         nodes.push(start);
         while(!nodes.empty())
-            System.out.print(nodes.pop()+" ");
+            System.out.print(nodes.pop()+" ");*/
 
 /*
 
         }
+
+
 */
+
+    int top = start = 1;
+    int elem = 0;
+    Stack<Integer> nodes = new Stack<>();
+    nodes.push(start);
+
+    while(!nodes.empty()){
+        for(int i=0;i<adjLst[top-1].size();i++){
+            elem = adjLst[top-1].get(i);
+            if(!visited[elem])
+            nodes.push(elem);
+        }
+        visited[top-1] = true;
+        top = nodes.pop();
+        //System.out.println("top is ", top);
+
+    }
+
+
+
 
     }
 }

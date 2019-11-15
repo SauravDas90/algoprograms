@@ -1,200 +1,89 @@
 package com.hackerrank.test.practice;
-
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.*;
 
 
-public class ReverseLinkedList {
-/*
+public class ReverseLinkedList{
 
-    static class SinglyLinkedListNode {
-        public int data;
-        public SinglyLinkedListNode next;
-
-        public SinglyLinkedListNode(int nodeData) {
-            this.data = nodeData;
-            this.next = null;
-        }
-    }
-
-    static class SinglyLinkedList {
-        public SinglyLinkedListNode head;
-        public SinglyLinkedListNode tail;
-
-        public SinglyLinkedList() {
-            this.head = null;
-            this.tail = null;
-        }
-
-        public void insertNode(int nodeData) {
-            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
-
-            if (this.head == null) {
-                this.head = node;
-            } else {
-                this.tail.next = node;
-            }
-
-            this.tail = node;
-        }
-    }
-
-    public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
-        while (node != null) {
-            bufferedWriter.write(String.valueOf(node.data));
-
-            node = node.next;
-
-            if (node != null) {
-                bufferedWriter.write(sep);
-            }
-        }
-    }
-
-    // Complete the reverse function below.
-
-    */
-/*
-     * For your reference:
-     *
-     * SinglyLinkedListNode {
-     *     int data;
-     *     SinglyLinkedListNode next;
-     * }
-     *
-     *//*
-
-    static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
-
-        if(head == null)
-            return;
-
-
-        SinglyLinkedListNode traverse = head,tail,temp;
-        while(traverse.next != null)
-            traverse = head.next;
-
-         tail = traverse;
-         traverse = head.next;
-
-         while(traverse.next != null){
-            temp = traverse.left;
-            traverse.left = traverse.right
-         }
-    }
-
-    }
-
-    private static final Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
-        int tests = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int testsItr = 0; testsItr < tests; testsItr++) {
-            SinglyLinkedList llist = new SinglyLinkedList();
-
-            int llistCount = scanner.nextInt();
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-            for (int i = 0; i < llistCount; i++) {
-                int llistItem = scanner.nextInt();
-                scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-                llist.insertNode(llistItem);
-            }
-
-            SinglyLinkedListNode llist1 = reverse(llist.head);
-
-            printSinglyLinkedList(llist1, " ", bufferedWriter);
-            bufferedWriter.newLine();
-        }
-
-        bufferedWriter.close();
-
-        scanner.close();
-
-*/
-
-    static Node head;
-
-    static class Node {
-
+    static class Node{
         int data;
         Node next;
-
-        Node(int d)
-        {
-            data = d;
-            next = null;
+        Node(int data,Node next){
+            this.data = data;
+            this.next = next;
         }
     }
 
-    /* Function to reverse the linked list */
-    Node reverse(Node node)
-    {
-        // 3 node approach, iterative one
-        /*Node prev = null;
-        Node current = node;
-        Node next = null;
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
+    static Node reverseHead= null;
+    public static void main(String[] args)  {
+        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+          final Scanner scanner = new Scanner(System.in);
+
+        Node head,temp,traverse;
+        head = traverse = null;
+        int noOfElements = scanner.nextInt();
+
+        for(int i=0;i<noOfElements;i++){
+        int no = scanner.nextInt();
+         if(null == head){
+             head = new Node(no,null);
+         }
+         else if(null == head.next){
+             temp = new Node(no,null);
+              head.next = traverse = temp;
+         }
+         else{
+             while(null != traverse.next){
+                 traverse = traverse.next;
+             }
+             temp = new Node(no,null);
+                traverse.next = temp;
+
+         }
+
+
         }
-        node = prev;
-        return node;*/
+        reverse(head);
 
-        if(node == null || node.next == null)
-            return node;
+        temp = reverseHead;
+        while(temp != null){
+            System.out.println(temp.data);
+            temp = temp.next;
+            //temp = temp.nex
+        }
+        scanner.close();
+    }
 
-        Node remaining = reverse(node.next);
+    static Node reverse(Node head){
 
-        System.out.println("remainng ---  "+ remaining.data);//+ "remainining.next" + remaining.next.data);
-        Node traverse = remaining;
-
-        while(traverse !=null){
-            System.out.print("traversal data "+traverse.data+"\t");
+        // first condition check if the input is null
+        // second condition checks for termination condition
+        if(head == null || head.next == null)
+            return head;
+        Node tail  = reverse(head.next);
+       /* traverse = tail
+        while(traverse != null){
             traverse = traverse.next;
-        }
-
-        node.next.next = node;
-        node.next = null;
-
-        return remaining;
-    }
-
-    // prints content of double linked list
-    void printList(Node node)
-    {
-        while (node != null) {
-            System.out.print(node.data + " ");
-            node = node.next;
-        }
-    }
-
-    public static void main(String[] args)
-    {
-        ReverseLinkedList list = new ReverseLinkedList();
-        list.head = new Node(85);
-        list.head.next = new Node(15);
-        list.head.next.next = new Node(4);
-        list.head.next.next.next = new Node(20);
-
-        System.out.println("Given Linked list");
-        list.printList(head);
-        head = list.reverse(head);
-        System.out.println("");
-        System.out.println("Reversed linked list ");
-        list.printList(head);
-    }
+        }*/
+        if(reverseHead == null)
+            reverseHead = tail;
+        tail.next = head;
+        head.next = null;
+        return head;
 
     }
+
+
+}
+
+
+ /*if(head == null || head.next == null)
+         return head;
+
+         SinglyLinkedListNode tail = reverse(head.next);
+         SinglyLinkedListNode traverse = tail;
+         while(traverse != null)
+         traverse = traverse.next;
+         traverse.next = head;
+         head.next = null;
+         return tail;*/
