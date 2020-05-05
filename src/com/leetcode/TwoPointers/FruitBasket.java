@@ -1,81 +1,61 @@
 package com.leetcode.TwoPointers;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FruitBasket {
 
     public static void main(String[] args) {
         //int arr[] = {3,3,3,1,2};
-        int arr[] = {3,3,3,1,2,1,1,2,3,3,4,3,3,3,3,3,3,5,5,7,3,3,4};
-        totalFruit(arr);
+       // int arr[] = {3,3,3,1,2,1,1,2,3,3,4,3,3,3,3,3,3,5,5,7,3,3,4};
+        int arr[] = {3,3,3,1,2,1,1,2,3,3,4};
+
+         totalFruit(arr);
     }
 
     public static int totalFruit(int[] tree) {
-
         int len = tree.length;
 
-        if(len<=1)
+        if(len<=2)
             return len;
 
-        int[] lastIndx = new int[3];  // one more space for the additional value
-        int[] elem = new int[3];
+        int maxFruitLength = 2;
+        int maxFruitsInBasket = 0;
+        // Define a HashMap of length 2;
+        Map<Integer,Integer> windowFruits = new HashMap<>();
 
-        Arrays.fill(lastIndx,-1);
-        Arrays.fill(elem,-1);
 
-        lastIndx[0] = 0; // first elemen into array
-        elem[0] = tree[0];
+        windowFruits.put(tree[0],0);
+        windowFruits.putIfAbsent(tree[1],1);  // this could be null if the first 2 elements are same
 
-        elem[1] = tree[1] == tree[0]? -1:tree[1];
-        lastIndx[1] = elem[1] == -1? -1:1;
-        lastIndx[0] = lastIndx[1] == 1?lastIndx[0] : lastIndx[0]+1;
+        for(int i =2 ; i<len;i++){
 
-        int winSize = 2;
-        int maxWindow = 0;
-
-        int loopCounter = 2; // startig of the loop  //lastIndx[0] < len-1 ||
-
-        while(loopCounter<len ){
-
-            if(tree[loopCounter] == elem[0]){
-                lastIndx[0] = loopCounter;
-                winSize++;
+            if(windowFruits.containsKey(tree[i])){
+                maxFruitLength++;
+                // update the index
+                //  windowFruits.put(tree[i],i);
             }
 
-            else if(tree[loopCounter] == elem[1]){
-                lastIndx[1] = loopCounter;
-                winSize++;
-            }
-
-            else if(lastIndx[1] == -1 && elem[1] == -1){
-                lastIndx[1] = loopCounter;
-                elem[1] = tree[loopCounter];
-                winSize++;
-            }
-            else
-            {
-                if(lastIndx[0] < lastIndx[1])
-                {
-                    lastIndx[0] = lastIndx[1];
-                    elem[0] = elem[1];
-
+            else{
+                if(windowFruits.size() <= 1){   // base condition if the nos get repeated
+                    maxFruitLength++;
+                    windowFruits.put(tree[i],i);
                 }
-
-
-                lastIndx[1] = loopCounter;
-                elem[1] = tree[loopCounter];
-
-                maxWindow = Math.max(maxWindow,winSize);
-                winSize =  lastIndx[1] -  lastIndx[0];
-
+                else{
+                    int keyNotTobeRemoved = tree[i-1];
+                    windowFruits.entrySet().removeIf( entry -> (keyNotTobeRemoved != entry.getKey()));
+                    windowFruits.put(tree[i],i);
+                    maxFruitsInBasket = Math.max(maxFruitsInBasket,maxFruitLength);
+                    maxFruitLength =(i-windowFruits.get(keyNotTobeRemoved))+1;
+                }
             }
-
-            loopCounter++;
-
 
         }
 
-        return maxWindow;
+        // this is for conditions, when the max ends at last index;
+        maxFruitsInBasket = Math.max(maxFruitsInBasket,maxFruitLength);
+        return maxFruitsInBasket;
 
     }
 }
