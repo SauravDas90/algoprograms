@@ -1,3 +1,4 @@
+/*
 package com.hackerrank.test;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -8,7 +9,8 @@ import java.util.Scanner;
 
 public class SolutionImp1{
 
-	/*public static void main(String[] args)throws Exception {
+	*/
+/*public static void main(String[] args)throws Exception {
 		BigInteger b= new BigInteger("1");
 		int num;
 		
@@ -27,10 +29,13 @@ public class SolutionImp1{
 		// TODO Auto-generated method stub
 
 	}
-*/
+*//*
+
 
 	public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        */
+/* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. *//*
+
 		int n,m,a[],b[],x[],y[];
 
 
@@ -77,3 +82,4 @@ public class SolutionImp1{
 // In this solution the issue was with the boundary value, so please ensure that it doesnt happens. (Also note the output index achieved
 	}
 }
+*/
