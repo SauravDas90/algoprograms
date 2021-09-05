@@ -16,10 +16,10 @@ public class MinHeap {
             return;
         }
         int i = 0;
-        while (elem > tree[i]){
+        while (elem > tree[i]){ // always check the left child first
             if(tree[2*i+1] == 0)
                 tree[2*i+1] = elem;
-            else if(tree[2*(i+1)] == 0)
+            else if(tree[2*(i+1)] == 0) // then check the right child
                 tree[2*(i+1)] = elem;
             i++;
         }
