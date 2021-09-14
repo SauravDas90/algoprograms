@@ -20,8 +20,8 @@ public class IterativeDFS {
         for (int i = 0; i < nodes; i++) {
             graph[i] = new LinkedList<>();
         }
-
-        for (int i = 0; i < nodes; i++) {
+        // need to loop through all the edges, not only vertex
+        for (int i = 0; i < edges; i++) {
             int u = in.nextInt();
             int v = in.nextInt();
             int w = in.nextInt();

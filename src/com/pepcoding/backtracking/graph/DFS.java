@@ -25,19 +25,20 @@ public class DFS {
         int edges  = in.nextInt();
 
         boolean[] visited = new boolean[nodes];
-        LinkedList<Node1>[] graph = new LinkedList[nodes];
+        LinkedList<NodeWeight>[] graph = new LinkedList[nodes];
 
         for (int i = 0; i < nodes; i++) {
-            graph[i] = new LinkedList<Node1>();
+            graph[i] = new LinkedList<NodeWeight>();
         }
 
-        for(int i = 0 ; i < nodes; i++){
+        // need to loop through all the edges, not only vertex
+        for(int i = 0 ; i < edges; i++){
             int u = in.nextInt();
             int v = in.nextInt();
             int w = in.nextInt();
 
-            graph[u-1].add(new Node1(v,w));
-            graph[v-1].add(new Node1(u,w));
+            graph[u-1].add(new NodeWeight(v,w));
+            graph[v-1].add(new NodeWeight(u,w));
         }
 
         boolean foundNode = doDFS(graph,visited,1,7);
@@ -50,12 +51,12 @@ public class DFS {
 
 
 
-    public static boolean  doDFS(LinkedList<Node1>[] graph, boolean visited[], int src, int dest) {
+    public static boolean  doDFS(LinkedList<NodeWeight>[] graph, boolean visited[], int src, int dest) {
         if (src == dest)
             return true;
         // marking the node as visited
         visited[src-1] = true;
-        for(Node1 nbr: graph[src-1]){
+        for(NodeWeight nbr: graph[src-1]){
             if(!visited[nbr.vertex-1]){
                 boolean foundNode = doDFS(graph,visited,nbr.vertex,dest);
                 // this is to stop the DFS and return from the node depth
