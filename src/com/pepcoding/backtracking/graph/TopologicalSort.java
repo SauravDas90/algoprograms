@@ -66,3 +66,11 @@ public class TopologicalSort {
         sortedNode.push(src);
     }
 }
+// simplifying the logic
+
+// 1. create a directed graph i.e. dont add element on other places
+// 2. for a node first check if the visited node has any outdegree
+    //, if outdegree = 0 then just mark it as visited and it to the stack
+// 3. if the element is having on zero outdegree, first visit all the elements ,
+ //   a. notice that in this case, we dont mark the elements visited as soon as it called
+// we reach till th end of the leaf and then mark it as visited
