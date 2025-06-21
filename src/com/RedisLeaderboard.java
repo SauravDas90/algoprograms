@@ -158,3 +158,44 @@ public class RedisLeaderboard {
         leaderboard.close();
     }
 }
+
+
+
+
+Explanation of the Java Code:
+
+RedisLeaderboard Class:
+
+Holds a Jedis instance to connect to Redis.
+LEADERBOARD_KEY: A constant string for the Redis sorted set key.
+addOrUpdateScore(String userId, double score):
+
+Uses jedis.zadd(LEADERBOARD_KEY, score, userId).
+This is the core of updating the leaderboard. If userId doesn't exist in LEADERBOARD_KEY, it's added with the given score. If userId already exists, its score is updated to the new value. This operation is atomic in Redis.
+getTopNPlayers(int limit):
+
+Uses jedis.zrevrangeWithScores(LEADERBOARD_KEY, 0, limit - 1).
+ZREVRANGE retrieves elements from a sorted set in reverse order (from highest score to lowest).
+0 and limit - 1 define the 0-based start and end indices of the range.
+WITHSCORES ensures that both the member (userId) and its score are returned.
+The Set<Tuple> is then mapped to a List<UserScore> for easier consumption.
+getPlayerRank(String userId):
+
+Uses jedis.zrevrank(LEADERBOARD_KEY, userId).
+ZREVRANK returns the 0-based rank of userId when sorted in descending order of score. If the user isn't found, it returns null.
+getPlayerScore(String userId):
+
+Uses jedis.zscore(LEADERBOARD_KEY, userId).
+Returns the score associated with userId, or null if the user is not in the leaderboard.
+removePlayer(String userId):
+
+Uses jedis.zrem(LEADERBOARD_KEY, userId).
+Removes userId from the sorted set. Returns the number of elements removed (1 if successful, 0 if not found).
+UserScore Class:
+
+A simple POJO to hold the userId and score for clarity when returning leaderboard data.
+To run this example:
+
+Have Redis Running: Ensure you have a Redis server running, typically on localhost:6379. You can download and install Redis from https://redis.io/download.
+
+Add Jedis Dependency: If you're using Maven, add the following to your pom.xml:
